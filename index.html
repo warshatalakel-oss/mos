@@ -6,18 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light" />
     <script>
-      // Aggressive clearing of SWs and Caches to purge any zombie service workers
+      // Aggressive purging of old service workers and caches
       (function() {
         if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.getRegistrations().then(registrations => {
-            for (const registration of registrations) {
-              registration.unregister();
+          navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (var i = 0; i < registrations.length; i++) {
+              registrations[i].unregister().then(function() {
+                console.log('SW unregistered');
+              });
             }
           });
         }
         if ('caches' in window) {
-          caches.keys().then(names => {
-            for (let name of names) caches.delete(name);
+          caches.keys().then(function(names) {
+            for (var i = 0; i < names.length; i++) {
+              caches.delete(names[i]);
+            }
           });
         }
       })();
@@ -40,6 +44,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./src/entry.tsx"></script>
+    <script type="module" src="/src/app-entry-v2.tsx"></script>
   </body>
 </html>
