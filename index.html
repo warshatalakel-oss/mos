@@ -23,6 +23,20 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="src/main.tsx"></script>
+    <script>
+      // Clear legacy service worker that was used for in-browser transpilation
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for (const registration of registrations) {
+            registration.unregister();
+          }
+          if (registrations.length > 0) {
+            // Reload after unregistering to ensure clean slate
+            window.location.reload();
+          }
+        });
+      }
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
