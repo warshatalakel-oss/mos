@@ -15,18 +15,18 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@google/genai": "^1.9.0",
     "@tailwindcss/vite": "^4.2.4",
-    "@vitejs/plugin-react": "^5.0.4",
     "lucide-react": "^0.525.0",
     "motion": "^12.38.0",
     "path": "^0.12.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.2.4",
-    "uuid": "9.0.1",
-    "vite": "^7.1.7"
+    "uuid": "9.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
-    "typescript": "~5.8.2"
+    "@vitejs/plugin-react": "^5.0.4",
+    "typescript": "~5.8.2",
+    "vite": "^7.1.7"
   }
 }
