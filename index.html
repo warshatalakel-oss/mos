@@ -7,21 +7,30 @@
     <meta name="color-scheme" content="light" />
     <title>ادارة مدرسة مصباح الهدى الاساسية</title>
     <script>
-      // Clear service workers and caches to ensure the new version loads correctly
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for (var i = 0; i < registrations.length; i++) {
-            registrations[i].unregister();
+      (function() {
+        var key = 'sw_purged_v3';
+        if (!localStorage.getItem(key)) {
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+              for (var i = 0; i < registrations.length; i++) {
+                registrations[i].unregister();
+              }
+              if (registrations.length > 0 && 'caches' in window) {
+                caches.keys().then(function(names) {
+                  for (var j = 0; j < names.length; j++) caches.delete(names[j]);
+                }).then(function() {
+                  localStorage.setItem(key, 'true');
+                  window.location.reload(true);
+                });
+              } else {
+                localStorage.setItem(key, 'true');
+              }
+            });
+          } else {
+            localStorage.setItem(key, 'true');
           }
-        });
-      }
-      if ('caches' in window) {
-        caches.keys().then(function(names) {
-          for (var i = 0; i < names.length; i++) {
-            caches.delete(names[i]);
-          }
-        });
-      }
+        }
+      })();
     </script>
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="DqVnUTHGoteKNHzZei8hgfPZyw7BDBpzY0ZXLPkNgrQ" />
@@ -40,6 +49,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./src/main.tsx"></script>
+    <script type="module" src="/src/bootstrap.tsx"></script>
   </body>
 </html>
