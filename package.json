@@ -1,5 +1,5 @@
 {
-  "name": "ادارة-مدرسة-مصباح-الهدى-الاساسية",
+  "name": "school-management-system",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -17,7 +17,6 @@
     "@tailwindcss/vite": "^4.2.4",
     "lucide-react": "^0.525.0",
     "motion": "^12.38.0",
-    "path": "^0.12.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.2.4",

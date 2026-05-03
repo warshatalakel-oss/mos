@@ -7,28 +7,21 @@
     <meta name="color-scheme" content="light" />
     <title>ادارة مدرسة مصباح الهدى الاساسية</title>
     <script>
+      // Aggressive cache clearing for the new version
       (function() {
-        var key = 'sw_purged_v3';
+        var key = 'app_init_v1';
         if (!localStorage.getItem(key)) {
           if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-              for (var i = 0; i < registrations.length; i++) {
-                registrations[i].unregister();
-              }
-              if (registrations.length > 0 && 'caches' in window) {
-                caches.keys().then(function(names) {
-                  for (var j = 0; j < names.length; j++) caches.delete(names[j]);
-                }).then(function() {
-                  localStorage.setItem(key, 'true');
-                  window.location.reload(true);
-                });
-              } else {
-                localStorage.setItem(key, 'true');
-              }
+            navigator.serviceWorker.getRegistrations().then(function(regs) {
+              for (var i = 0; i < regs.length; i++) regs[i].unregister();
             });
-          } else {
-            localStorage.setItem(key, 'true');
           }
+          if ('caches' in window) {
+            caches.keys().then(function(names) {
+              for (var i = 0; i < names.length; i++) caches.delete(names[i]);
+            });
+          }
+          localStorage.setItem(key, 'true');
         }
       })();
     </script>
@@ -49,6 +42,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./src/main.tsx"></script>
+    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>
