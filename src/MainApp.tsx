@@ -1,51 +1,51 @@
 
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Settings as SettingsIcon, BookUser, Home, Printer, BarChart, ClipboardList, Archive, User, LogOut, Eye, ChevronsRight, ChevronsLeft, BookCopy, LayoutGrid, ClipboardCheck, Info, Presentation, Brush, Mail, BookMarked, BookText, FileText, PlayCircle, X, Users, CalendarClock, Bell, ClipboardPaste, Sparkles, Star, ClipboardEdit, Trophy, Award, ShieldBan, MessageSquare, Headphones, RefreshCw } from 'lucide-react';
-import type { SchoolSettings, ClassData, User as CurrentUser, Teacher, LeaveRequest, CounselorGuidance } from './types.ts';
-import { DEFAULT_SCHOOL_SETTINGS } from './constants.ts';
-import { db } from './hooks/lib/firebase.ts';
+import type { SchoolSettings, ClassData, User as CurrentUser, Teacher, LeaveRequest, CounselorGuidance } from './types';
+import { DEFAULT_SCHOOL_SETTINGS } from './constants';
+import { db } from './hooks/lib/firebase';
 import { v4 as uuidv4 } from 'uuid';
 
-import Settings from './components/Settings.tsx';
-import ClassManager from './components/ClassManager.tsx';
-import GradeSheet from './components/GradeSheet.tsx';
-import MonthlyResultsExporter from './components/principal/MonthlyResultsExporter.tsx';
-import StatisticsManager from './components/StatisticsManager.tsx';
-import TeacherLogExporter from './components/TeacherLogExporter.tsx';
-import AdminLogExporter from './components/AdminLogExporter.tsx';
-import PrincipalDashboard from './components/principal/PrincipalDashboard.tsx';
-import ReceiveTeacherLog from './components/principal/ReceiveTeacherLog.tsx';
-import TeacherGradeSheet from './components/teacher/TeacherGradeSheet.tsx';
-import TeacherPlatform from './components/teacher/TeacherPlatform.tsx';
-import TeacherEvaluation from './components/teacher/TeacherEvaluation.tsx';
-// import ElectronicLogbookGenerator from './components/principal/ElectronicLogbookGenerator.tsx'; // Temporarily disabled due to missing LogbookFormPage
-import DailyGradeSheetManager from './components/teacher/DailyGradeSheetManager.tsx';
-import GradeBoardExporter from './components/principal/GradeBoardExporter.tsx';
-import OralExamListsExporter from './components/principal/OralExamListsExporter.tsx';
-import PrimaryOralExamExporter from './components/principal/PrimaryOralExamExporter.tsx';
-// import PromotionLog from './components/principal/PromotionLog.tsx'; // Temporarily disabled, component missing
-import AboutModal from './components/AboutModal.tsx';
-import ExamHallsManager from './components/principal/ExamHallsManager.tsx';
-import CoverEditor from './components/principal/CoverEditor.tsx';
-// import ExamCardsExporter from './components/principal/ExamCardsExporter.tsx';
-import AdministrativeCorrespondence from './components/principal/AdministrativeCorrespondence.tsx';
-import PrimaryLogExporter from './components/principal/PrimaryLogExporter.tsx';
-import AbsenceManager from './components/principal/AbsenceManager.tsx';
-import SchoolArchive from './components/principal/SchoolArchive.tsx';
-import ExamControlLog from './components/principal/ExamControlLog.tsx';
-// import ParentInvitationExporter from './components/principal/ParentInvitationExporter.tsx'; // Temporarily disabled
-import ExportManager from './components/ExportManager.tsx';
-import LeaveRequestManager from './components/principal/LeaveRequestManager.tsx';
-import LeaveRequestForm from './components/teacher/LeaveRequestForm.tsx';
-import EducationalEncyclopedia from './components/teacher/EducationalEncyclopedia.tsx';
-import StudentManagement from './components/principal/StudentManagement.tsx';
-import HomeworkManager from './components/teacher/HomeworkManager.tsx';
-import HallOfFame from './components/shared/HallOfFame.tsx';
-import HonorBoardView from './components/shared/HonorBoardView.tsx';
-import BehaviorManager from './components/principal/BehaviorManager.tsx';
-import TeacherCommunication from './components/teacher/TeacherCommunication.tsx';
-import StaffAchievements from './components/principal/StaffAchievements.tsx';
-import GuidanceDisplay from './components/shared/GuidanceDisplay.tsx';
+import Settings from './components/Settings';
+import ClassManager from './components/ClassManager';
+import GradeSheet from './components/GradeSheet';
+import MonthlyResultsExporter from './components/principal/MonthlyResultsExporter';
+import StatisticsManager from './components/StatisticsManager';
+import TeacherLogExporter from './components/TeacherLogExporter';
+import AdminLogExporter from './components/AdminLogExporter';
+import PrincipalDashboard from './components/principal/PrincipalDashboard';
+import ReceiveTeacherLog from './components/principal/ReceiveTeacherLog';
+import TeacherGradeSheet from './components/teacher/TeacherGradeSheet';
+import TeacherPlatform from './components/teacher/TeacherPlatform';
+import TeacherEvaluation from './components/teacher/TeacherEvaluation';
+// import ElectronicLogbookGenerator from './components/principal/ElectronicLogbookGenerator'; // Temporarily disabled due to missing LogbookFormPage
+import DailyGradeSheetManager from './components/teacher/DailyGradeSheetManager';
+import GradeBoardExporter from './components/principal/GradeBoardExporter';
+import OralExamListsExporter from './components/principal/OralExamListsExporter';
+import PrimaryOralExamExporter from './components/principal/PrimaryOralExamExporter';
+// import PromotionLog from './components/principal/PromotionLog'; // Temporarily disabled, component missing
+import AboutModal from './components/AboutModal';
+import ExamHallsManager from './components/principal/ExamHallsManager';
+import CoverEditor from './components/principal/CoverEditor';
+// import ExamCardsExporter from './components/principal/ExamCardsExporter';
+import AdministrativeCorrespondence from './components/principal/AdministrativeCorrespondence';
+import PrimaryLogExporter from './components/principal/PrimaryLogExporter';
+import AbsenceManager from './components/principal/AbsenceManager';
+import SchoolArchive from './components/principal/SchoolArchive';
+import ExamControlLog from './components/principal/ExamControlLog';
+// import ParentInvitationExporter from './components/principal/ParentInvitationExporter'; // Temporarily disabled
+import ExportManager from './components/ExportManager';
+import LeaveRequestManager from './components/principal/LeaveRequestManager';
+import LeaveRequestForm from './components/teacher/LeaveRequestForm';
+import EducationalEncyclopedia from './components/teacher/EducationalEncyclopedia';
+import StudentManagement from './components/principal/StudentManagement';
+import HomeworkManager from './components/teacher/HomeworkManager';
+import HallOfFame from './components/shared/HallOfFame';
+import HonorBoardView from './components/shared/HonorBoardView';
+import BehaviorManager from './components/principal/BehaviorManager';
+import TeacherCommunication from './components/teacher/TeacherCommunication';
+import StaffAchievements from './components/principal/StaffAchievements';
+import GuidanceDisplay from './components/shared/GuidanceDisplay';
 
 
 type View = 'home' | 'settings' | 'class_manager' | 'grade_sheet' | 'export_results' | 'statistics' | 'teacher_log_exporter' | 'admin_log_exporter' | 'principal_dashboard' | 'receive_teacher_logs' | 'electronic_logbook' | 'grade_board' | 'oral_exam_lists' | 'primary_oral_exam' | 'promotion_log' | 'exam_halls' | 'cover_editor' | 'exam_cards' | 'exam_control_log' | 'administrative_correspondence' | 'primary_school_log' | 'school_archive' | 'absence_manager' | 'parent_invitations' | 'exam_results_exporter' | 'teacher_platform' | 'leave_requests' | 'leave_request_form' | 'educational_encyclopedia' | 'student_management' | 'student_evaluation' | 'homework_manager' | 'hall_of_fame' | 'honor_board_view' | 'behavior_manager' | 'teacher_communication' | 'staff_achievements' | 'daily_grade_sheet';
